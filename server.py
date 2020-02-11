@@ -13,6 +13,10 @@ AWESOMENESS = [
     'oh-so-not-meh', 'brilliant', 'ducky', 'coolio', 'incredible',
     'wonderful', 'smashing', 'lovely']
 
+DISSES = {
+    'idiot', 'jerk', 'baby'
+}
+
 
 @app.route("/")
 def start_here():
@@ -26,6 +30,28 @@ def start_here():
     </html>
     """
 
+@app.route("/diss")
+def insult_person():
+    """user to select diss"""
+
+    return """
+    <!doctype html>
+    <html>
+    <head>
+      <title>Amazing Disses</title>
+    </head>
+
+    <form action="/greet">
+      Select a diss:
+      <select name="diss">
+        <option value="baby>baby</option>
+        <option value="jerk>jerk</option>
+        <option value="idiot>idiot</option>
+      </select>
+      <input type="submit" value="Submit">
+    </form>
+
+    """
 
 @app.route("/hello")
 def say_hello():
@@ -40,7 +66,7 @@ def say_hello():
       <body>
         <h1>Hi There!</h1>
         <form action="/greet">
-          What's your name? <input type="text" name="person">         
+          What's your name? <input type="text" name="person">       
 
           Choose your own compliment:
           <select name="compliment">
@@ -79,6 +105,7 @@ def greet_person():
     compliment = request.args.get("compliment")
 
     # y = x
+    diss = request.args.get("diss")
 
     return """
     <!doctype html>
@@ -96,4 +123,4 @@ def greet_person():
 if __name__ == "__main__":
     # debug=True gives us error messages in the browser and also "reloads"
     # our web app if we change the code.
-    app.run(debug=False, host="0.0.0.0")
+    app.run(debug=True, host="0.0.0.0")
